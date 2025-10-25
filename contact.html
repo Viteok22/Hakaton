@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты - УмКабинет</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="components/navbar.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="components/sidebar.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <custom-navbar></custom-navbar>
+  <div class="flex">
+    <custom-sidebar></custom-sidebar>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-6">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-indigo-800">Контакты</h1>
+          <i data-feather="phone" class="text-indigo-600 w-8 h-8"></i>
+        </div>
+
+        <!-- Контейнер сетки -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <div class="contact bg-indigo-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-indigo-800 mb-1">Ректор</h2>
+            <p class="text-gray-700">Захаров Вадим Петрович</p>
+            <p class="text-sm text-gray-600 mt-2">📧 <a href="mailto:rector@uust.ru" class="text-indigo-600 hover:underline">rector@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 (347) 272-63-70</p>
+            <p class="text-sm text-gray-600">🏢 г. Уфа, ул. К. Маркса, 12, 1-223</p>
+          </div>
+
+          <div class="contact bg-blue-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-blue-800 mb-1">Приёмная комиссия</h2>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:abiturient@uust.ru" class="text-blue-600 hover:underline">abiturient@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 (908) 350-49-40</p>
+          </div>
+
+          <div class="contact bg-purple-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-purple-800 mb-1">Отдел по работе с обучающимися (МФСО)</h2>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:mfso@uust.ru" class="text-purple-600 hover:underline">mfso@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 (908) 350-50-39</p>
+          </div>
+
+          <div class="contact bg-pink-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-pink-800 mb-1">Психологическая помощь студентам</h2>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:zamanovalb@uust.ru" class="text-pink-600 hover:underline">zamanovalb@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 (917) 432-67-21</p>
+          </div>
+
+          <div class="contact bg-green-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-green-800 mb-1">Центр карьеры</h2>
+            <p class="text-gray-700">Хусаинов Айбулат Спартакович</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:career@uust.ru" class="text-green-600 hover:underline">career@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 908 350-49-39</p>
+          </div>
+
+          <div class="contact bg-blue-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-blue-800 mb-1">Проректор по международной деятельности</h2>
+            <p class="text-gray-700">Филипова Рита Фаритовна</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:ums@uust.ru" class="text-blue-600 hover:underline">ums@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 917 476-22-48</p>
+          </div>
+
+          <div class="contact bg-yellow-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-yellow-800 mb-1">Центр искусственного интеллекта</h2>
+            <p class="text-gray-700">Шахмаметова Гюзель Радиковна</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:cai@uust.ru" class="text-yellow-600 hover:underline">cai@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 917 344-51-41</p>
+          </div>
+
+          <div class="contact bg-indigo-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-indigo-800 mb-1">Управление цифровой трансформации</h2>
+            <p class="text-gray-700">Ефимов Иван Сергеевич</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:isu@uust.ru" class="text-indigo-600 hover:underline">isu@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 908 350-37-63</p>
+          </div>
+
+          <div class="contact bg-teal-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-teal-800 mb-1">Отдел сопровождения цифровых систем</h2>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:isu_support@uust.ru" class="text-teal-600 hover:underline">isu_support@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 908 350-50-32</p>
+          </div>
+
+          <div class="contact bg-amber-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-amber-800 mb-1">Финансово-экономическое управление</h2>
+            <p class="text-gray-700">Зюбан Эльвира Владимировна</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:ZyubanEHV@uust.ru" class="text-amber-600 hover:underline">ZyubanEHV@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 347 229-96-42</p>
+          </div>
+
+          <div class="contact bg-red-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-red-800 mb-1">Правовое управление</h2>
+            <p class="text-gray-700">Манукян Нарине Григорьевна</p>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:manukyan.ng@ugatu.su" class="text-red-600 hover:underline">manukyan.ng@ugatu.su</a></p>
+            <p class="text-sm text-gray-600">☎️ +7 908 350-48-96</p>
+          </div>
+
+          <div class="contact bg-gray-50 rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <h2 class="text-lg font-semibold text-gray-800 mb-1">Техническая поддержка (электронное обучение)</h2>
+            <p class="text-sm text-gray-600">📧 <a href="mailto:sdoino@uust.ru" class="text-gray-700 hover:underline">sdoino@uust.ru</a></p>
+            <p class="text-sm text-gray-600">☎️ 8 (800) 200-35-68 (доб. 3)</p>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <custom-footer></custom-footer>
+
+  <script src="script.js"></script>
+  <script>feather.replace();</script>
+</body>
+</html>
