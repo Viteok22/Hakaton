@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Преподавательский состав - УмКабинет</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="components/navbar.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="components/sidebar.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <custom-navbar></custom-navbar>
+  <div class="flex">
+    <custom-sidebar></custom-sidebar>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-6">
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-3xl font-bold text-indigo-800">Преподавательский состав</h1>
+          <i data-feather="users" class="text-indigo-600 w-8 h-8"></i>
+        </div>
+
+        <!-- Поисковая строка -->
+        <div class="mb-6">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="🔍 Поиск по ФИО или дисциплине..."
+            class="w-full p-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+
+        <!-- Контейнер для карточек преподавателей -->
+        <div id="teachersContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Карточки преподавателей будут загружены сюда -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <custom-footer></custom-footer>
+
+  <script src="teachers.js"></script>
+  <script>feather.replace();</script>
+</body>
+</html>
