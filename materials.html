@@ -20,14 +20,13 @@
             <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="text-3xl font-bold text-indigo-800">Учебные материалы</h1>
-                    <button id="toggleFormBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-indigo-700 transition">
-                        <i data-feather="book-open" class="mr-2"></i> Открыть поиск
-                    </button>
                 </div>
 
-                <!-- Форма поиска -->
-                <div id="searchForm" class="hidden mb-8 border border-indigo-100 rounded-lg p-6 bg-indigo-50">
+                <!-- Форма поиска (всегда видна) -->
+                <div id="searchForm" class="mb-8 border border-indigo-100 rounded-lg p-6 bg-indigo-50">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        
+                        <!-- Дисциплина -->
                         <div>
                             <label for="discipline" class="block text-sm font-medium text-gray-700 mb-1">Дисциплина</label>
                             <select id="discipline" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -37,10 +36,20 @@
                                 <option value="дискретная математика">Дискретная математика</option>
                             </select>
                         </div>
+
+                        <!-- Курс -->
                         <div>
                             <label for="course" class="block text-sm font-medium text-gray-700 mb-1">Курс</label>
-                            <input id="course" type="number" min="1" max="5" placeholder="1" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <select id="course" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Выберите курс</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
+
+                        <!-- Группа -->
                         <div>
                             <label for="group" class="block text-sm font-medium text-gray-700 mb-1">Группа</label>
                             <select id="group" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -51,11 +60,17 @@
                                 <option value="топ-104б">ТОП-104Б</option>
                             </select>
                         </div>
+
+                        <!-- Лекция -->
                         <div>
                             <label for="lecture" class="block text-sm font-medium text-gray-700 mb-1">№ Лекции</label>
-                            <input id="lecture" type="number" min="1" placeholder="1" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <select id="lecture" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Выберите лекцию</option>
+                                <!-- 1–24 автоматически создаются -->
+                            </select>
                         </div>
                     </div>
+
                     <div class="mt-6 flex justify-end">
                         <button id="searchBtn" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition">
                             <i data-feather="search" class="inline mr-2"></i> Найти
@@ -86,12 +101,16 @@
     <script>
         feather.replace();
 
-        // показать/скрыть форму поиска
-        document.getElementById('toggleFormBtn').addEventListener('click', () => {
-            document.getElementById('searchForm').classList.toggle('hidden');
-        });
+        // создаем пункты для лекций (1–24)
+        const lectureSelect = document.getElementById('lecture');
+        for (let i = 1; i <= 24; i++) {
+            const option = document.createElement('option');
+            option.value = i.toString();
+            option.textContent = i;
+            lectureSelect.appendChild(option);
+        }
 
-        // база данных учебных материалов (пока 1 пример)
+        // база данных учебных материалов
         const materials = [
             {
                 discipline: 'математический анализ',
@@ -100,12 +119,12 @@
                 lecture: '1',
                 title: 'Математический анализ — Лекция 1',
                 description: 'Введение в математический анализ. Пределы последовательностей, основные определения и примеры.',
-                lectureFile: 'materials/matan_lecture1.pdf',
-                notesFile: 'materials/matan_notes1.pdf'
+                lectureFile: 'matan_lecture1.pdf',
+                notesFile: 'matan_notes1.pdf'
             }
         ];
 
-        // поиск
+        // обработка поиска
         document.getElementById('searchBtn').addEventListener('click', () => {
             const discipline = document.getElementById('discipline').value.trim().toLowerCase();
             const course = document.getElementById('course').value.trim().toLowerCase();
