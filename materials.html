@@ -21,7 +21,7 @@
                 <div class="flex justify-between items-center mb-8">
                     <h1 class="text-3xl font-bold text-indigo-800">Учебные материалы</h1>
                     <button id="toggleFormBtn" class="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center hover:bg-indigo-700 transition">
-                        <i data-feather="plus" class="mr-2"></i> Добавить / Найти материал
+                        <i data-feather="book-open" class="mr-2"></i> Открыть поиск
                     </button>
                 </div>
 
@@ -30,7 +30,12 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div>
                             <label for="discipline" class="block text-sm font-medium text-gray-700 mb-1">Дисциплина</label>
-                            <input id="discipline" type="text" placeholder="Напр. Мат анализ" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <select id="discipline" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Выберите дисциплину</option>
+                                <option value="алгебра и геометрия">Алгебра и геометрия</option>
+                                <option value="математический анализ">Математический анализ</option>
+                                <option value="дискретная математика">Дискретная математика</option>
+                            </select>
                         </div>
                         <div>
                             <label for="course" class="block text-sm font-medium text-gray-700 mb-1">Курс</label>
@@ -38,7 +43,13 @@
                         </div>
                         <div>
                             <label for="group" class="block text-sm font-medium text-gray-700 mb-1">Группа</label>
-                            <input id="group" type="text" placeholder="Напр. Топ-103б" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <select id="group" class="w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                <option value="">Выберите группу</option>
+                                <option value="топ-101б">ТОП-101Б</option>
+                                <option value="топ-102б">ТОП-102Б</option>
+                                <option value="топ-103б">ТОП-103Б</option>
+                                <option value="топ-104б">ТОП-104Б</option>
+                            </select>
                         </div>
                         <div>
                             <label for="lecture" class="block text-sm font-medium text-gray-700 mb-1">№ Лекции</label>
@@ -75,16 +86,15 @@
     <script>
         feather.replace();
 
-        // Показ / скрытие формы
+        // показать/скрыть форму поиска
         document.getElementById('toggleFormBtn').addEventListener('click', () => {
-            const form = document.getElementById('searchForm');
-            form.classList.toggle('hidden');
+            document.getElementById('searchForm').classList.toggle('hidden');
         });
 
-        // Данные учебных материалов (1 дисциплина)
+        // база данных учебных материалов (пока 1 пример)
         const materials = [
             {
-                discipline: 'мат анализ',
+                discipline: 'математический анализ',
                 course: '1',
                 group: 'топ-103б',
                 lecture: '1',
@@ -95,7 +105,7 @@
             }
         ];
 
-        // Поиск
+        // поиск
         document.getElementById('searchBtn').addEventListener('click', () => {
             const discipline = document.getElementById('discipline').value.trim().toLowerCase();
             const course = document.getElementById('course').value.trim().toLowerCase();
@@ -105,8 +115,8 @@
             const resultsContainer = document.getElementById('materialsList');
             resultsContainer.innerHTML = '';
 
-            const found = materials.filter(m => 
-                m.discipline.includes(discipline) &&
+            const found = materials.filter(m =>
+                m.discipline === discipline &&
                 m.course === course &&
                 m.group === group &&
                 m.lecture === lecture
