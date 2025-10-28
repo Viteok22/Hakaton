@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Опросы - УмКабинет</title>
+  <title>Обратная связь - УмКабинет</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <script src="components/navbar.js"></script>
   <script src="components/footer.js"></script>
   <script src="components/sidebar.js"></script>
@@ -17,15 +19,14 @@
     <custom-sidebar></custom-sidebar>
 
     <main class="flex-1 p-8">
-      <div class="max-w-5xl mx-auto">
-        <!-- Заголовок страницы -->
+      <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
         <div class="flex justify-between items-center mb-8">
           <h1 class="text-3xl font-bold text-indigo-800">Обратная связь</h1>
           <i data-feather="message-square" class="text-indigo-600 w-8 h-8"></i>
         </div>
 
         <!-- Информационная карточка -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div class="mb-10">
           <div class="flex items-center mb-4">
             <i data-feather="info" class="text-blue-600 w-6 h-6 mr-2"></i>
             <h2 class="text-xl font-semibold text-gray-800">Форма обратной связи</h2>
@@ -34,7 +35,7 @@
             Пожалуйста, заполните форму ниже, чтобы отправить нам ваши предложения, замечания или вопросы. 
             Мы ценим ваше мнение и постараемся ответить в кратчайшие сроки.
           </p>
-          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+          <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
             <div class="flex">
               <i data-feather="alert-triangle" class="text-yellow-600 w-5 h-5 mr-2"></i>
               <p class="text-sm text-yellow-700">
@@ -45,14 +46,14 @@
         </div>
 
         <!-- Google Forms контейнер -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div class="mb-10">
           <div class="flex items-center mb-6">
             <i data-feather="edit-3" class="text-green-600 w-6 h-6 mr-2"></i>
             <h2 class="text-xl font-semibold text-gray-800">Анкета обратной связи</h2>
           </div>
           
-          <div class="bg-gray-50 rounded-lg p-4 mb-4">
-            <div class="flex items-center justify-between mb-3">
+          <div class="bg-gray-50 rounded-lg p-5">
+            <div class="flex items-center justify-between mb-4">
               <span class="text-sm font-medium text-gray-700">Google Forms</span>
               <div class="flex items-center text-sm text-gray-500">
                 <i data-feather="clock" class="w-4 h-4 mr-1"></i>
@@ -61,7 +62,7 @@
             </div>
             
             <!-- Контейнер для Google Forms -->
-            <div id="google-forms-container" class="w-full h-96 bg-white rounded border border-gray-300 flex items-center justify-center">
+            <div class="w-full h-96 bg-white rounded border border-gray-300 flex items-center justify-center">
               <div class="text-center p-8">
                 <i data-feather="external-link" class="w-12 h-12 text-gray-400 mx-auto mb-4"></i>
                 <h3 class="text-lg font-medium text-gray-700 mb-2">Форма обратной связи</h3>
@@ -69,7 +70,7 @@
                 <a 
                   href="https://docs.google.com/forms/d/e/1FAIpQLSeZMYNWUtttovAYEXjdwmUexc-TERuQskUqfj4F0xur8tsT3Q/viewform?usp=header" 
                   target="_blank"
-                  class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300"
+                  class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300"
                 >
                   <i data-feather="external-link" class="w-4 h-4 mr-2"></i>
                   Открыть форму обратной связи
@@ -92,7 +93,7 @@
         </div>
 
         <!-- Статус отправки формы -->
-        <div class="bg-white rounded-xl shadow-lg p-6">
+        <div>
           <div class="flex items-center mb-4">
             <i data-feather="check-circle" class="text-purple-600 w-6 h-6 mr-2"></i>
             <h2 class="text-xl font-semibold text-gray-800">Статус отправки</h2>
@@ -122,6 +123,7 @@
 
   <custom-footer></custom-footer>
 
+  <script src="script.js"></script>
   <script>
     feather.replace();
     
@@ -155,11 +157,6 @@
           `Последняя проверка: ${now.toLocaleDateString('ru-RU')} ${now.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'})}`;
       }, 2000);
     }
-    
-    // Автоматическая проверка статуса при загрузке страницы
-    document.addEventListener('DOMContentLoaded', function() {
-      // Можно добавить автоматическую проверку, если нужно
-    });
   </script>
 </body>
 </html>
