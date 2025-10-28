@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Планирование карьеры</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<h1>Планирование карьеры</h1>
+
+<section id="resume-section">
+  <h2>Мое резюме</h2>
+  <input type="file" id="resume-upload" />
+  <ul id="resume-list"></ul>
+</section>
+
+<section id="career-plan">
+  <h2>План</h2>
+  <textarea id="plan-input" placeholder="Введите ваш план"></textarea>
+  <button onclick="savePlan()">Сохранить план</button>
+  <div id="saved-plan"></div>
+</section>
+
+<section id="courses-schedule">
+  <h2>Расписание курсов</h2>
+  <input type="text" id="course-name" placeholder="Название курса" />
+  <input type="date" id="course-date" />
+  <button onclick="addCourse()">Добавить курс</button>
+  <ul id="courses-list"></ul>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
