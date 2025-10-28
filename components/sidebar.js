@@ -78,18 +78,9 @@ class CustomSidebar extends HTMLElement {
           Преподаватели
         </a>
         
-        <div class="sidebar-title mt-4">Карьерное развитие</div>
         <a href="career.html" class="sidebar-item">
           <i data-feather="briefcase" class="sidebar-icon"></i>
           Карьерные возможности
-        </a>
-        <a href="resume.html" class="sidebar-item">
-          <i data-feather="file-text" class="sidebar-icon"></i>
-          Моё резюме
-        </a>
-        <a href="development-plan.html" class="sidebar-item">
-          <i data-feather="target" class="sidebar-icon"></i>
-          План развития
         </a>
         
         <div class="sidebar-title mt-4">Обратная связь</div>
@@ -105,4 +96,5 @@ class CustomSidebar extends HTMLElement {
     `;
   }
 }
+
 customElements.define('custom-sidebar', CustomSidebar);
