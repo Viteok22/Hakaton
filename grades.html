@@ -23,9 +23,11 @@
         <!-- Заголовок и фото -->
         <div class="flex items-center justify-between mb-8">
           <div class="flex items-center space-x-4">
-            <img src="a2ce7e85-679e-43dd-acd0-fe7d25c3d33b.png" alt="Фото студента" class="w-24 h-24 rounded-full object-cover border-4 border-indigo-200 shadow">
+            <div class="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center border-4 border-indigo-200 shadow">
+              <i data-feather="user" class="text-indigo-600 w-12 h-12"></i>
+            </div>
             <div>
-              <h1 class="text-3xl font-bold text-indigo-800">Камсков Виктор Алексеевич</h1>
+              <h1 class="text-3xl font-bold text-indigo-800">Иванов Иван</h1>
               <p class="text-gray-600 mt-1">Группа: <span class="font-medium text-indigo-700">ТОП-103Б</span></p>
             </div>
           </div>
@@ -68,34 +70,34 @@
     // Данные из Excel таблицы
     const semesterData = {
       1: [
-        { name: "Основы российской государственности", code: "Б1.О.2.0", lec: 18, lab: 0, prac: 36, srs: 14, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Основы российской государственности", code: "Б1.О.2.0", lec: 18, lab: 0, prac: 36, srs: 14, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
         { name: "Современная речевая культура", code: "Б1.О.06.1.0", lec: 8, lab: 0, prac: 16, srs: 44, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Физическая культура и спорт", code: "Б1.О.07.1.0", lec: 10, lab: 0, prac: 24, srs: 38, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Основы информационных технологий", code: "Б1.О.08.1.0", lec: 16, lab: 16, prac: 8, srs: 28, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 8, ze: 3, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Физическая культура и спорт", code: "Б1.О.07.1.0", lec: 10, lab: 0, prac: 24, srs: 38, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Основы информационных технологий", code: "Б1.О.08.1.0", lec: 16, lab: 16, prac: 8, srs: 28, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 8, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
         { name: "Алгебра и геометрия", code: "Б1.О.08.3.0", lec: 32, lab: 0, prac: 48, srs: 10, ze: 3, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 20, ze: 2, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 42, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 12, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
+        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 20, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 42, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "✔", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 12, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
       ],
       2: [
-        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Элективные дисциплины по физической культуре и спорту", code: "Б1.О.07.2.0", lec: 0, lab: 0, prac: 44, srs: 30, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 30, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 42, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Операционные системы", code: "Б1.О.08.5.0", lec: 20, lab: 20, prac: 8, srs: 56, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 55, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Алгоритмы и структуры данных", code: "Б1.О.09.2.0", lec: 24, lab: 32, prac: 8, srs: 26, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Введение в искусственный интеллект", code: "Б1.В.02.1.0", lec: 16, lab: 24, prac: 8, srs: 56, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Производственная практика: Технологическая практика", code: "Б2.В.1.0", lec: 0, lab: 0, prac: 0, srs: 104, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
-        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 8, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
+        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Элективные дисциплины по физической культуре и спорту", code: "Б1.О.07.2.0", lec: 0, lab: 0, prac: 44, srs: 30, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 30, ze: 4, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 42, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Операционные системы", code: "Б1.О.08.5.0", lec: 20, lab: 20, prac: 8, srs: 56, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 55, ze: 4, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Алгоритмы и структуры данных", code: "Б1.О.09.2.0", lec: 24, lab: 32, prac: 8, srs: 26, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Введение в искусственный интеллект", code: "Б1.В.02.1.0", lec: 16, lab: 24, prac: 8, srs: 56, ze: 3, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "✔", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Производственная практика: Технологическая практика", code: "Б2.В.1.0", lec: 0, lab: 0, prac: 0, srs: 104, ze: 3, exam: "", credit: "", diffCredit: "✔", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 8, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
       ],
       // Данные для остальных семестров можно добавить аналогично
     };
