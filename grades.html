@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Успеваемость - УмКабинет</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="components/navbar.js"></script>
+  <script src="components/footer.js"></script>
+  <script src="components/sidebar.js"></script>
+</head>
+
+<body class="bg-gray-50">
+  <custom-navbar></custom-navbar>
+  <div class="flex">
+    <custom-sidebar></custom-sidebar>
+
+    <main class="flex-1 p-8">
+      <div class="max-w-6xl mx-auto">
+        
+        <!-- Заголовок и фото -->
+        <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center space-x-4">
+            <img src="a2ce7e85-679e-43dd-acd0-fe7d25c3d33b.png" alt="Фото студента" class="w-24 h-24 rounded-full object-cover border-4 border-indigo-200 shadow">
+            <div>
+              <h1 class="text-3xl font-bold text-indigo-800">Камсков Виктор Алексеевич</h1>
+              <p class="text-gray-600 mt-1">Группа: <span class="font-medium text-indigo-700">ТОП-103Б</span></p>
+            </div>
+          </div>
+          <i data-feather="bar-chart-2" class="text-indigo-600 w-10 h-10"></i>
+        </div>
+
+        <!-- Информация о семестрах -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div class="flex items-center mb-4">
+            <i data-feather="calendar" class="text-indigo-600 w-6 h-6 mr-2"></i>
+            <h2 class="text-xl font-semibold text-gray-800">Семестры</h2>
+          </div>
+          <div class="flex flex-wrap gap-3" id="semester-buttons">
+            <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition" data-semester="all">Все</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="1">1</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="2">2</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="3">3</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="4">4</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="5">5</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="6">6</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="7">7</button>
+            <button class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm hover:bg-indigo-200 transition" data-semester="8">8</button>
+          </div>
+        </div>
+
+        <!-- Таблица успеваемости -->
+        <div id="performance-table-container">
+          <!-- Содержимое будет генерироваться JavaScript -->
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <custom-footer></custom-footer>
+
+  <script>
+    feather.replace();
+    
+    // Данные из Excel таблицы
+    const semesterData = {
+      1: [
+        { name: "Основы российской государственности", code: "Б1.О.2.0", lec: 18, lab: 0, prac: 36, srs: 14, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Современная речевая культура", code: "Б1.О.06.1.0", lec: 8, lab: 0, prac: 16, srs: 44, ze: 2, exam: "", credit: "✔", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Физическая культура и спорт", code: "Б1.О.07.1.0", lec: 10, lab: 0, prac: 24, srs: 38, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Основы информационных технологий", code: "Б1.О.08.1.0", lec: 16, lab: 16, prac: 8, srs: 28, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 8, ze: 3, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Алгебра и геометрия", code: "Б1.О.08.3.0", lec: 32, lab: 0, prac: 48, srs: 10, ze: 3, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 20, ze: 2, exam: "✔", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 42, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 12, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
+      ],
+      2: [
+        { name: "Проектная деятельность", code: "Б1.О.4.0", lec: 6, lab: 8, prac: 0, srs: 18, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Иностранный язык", code: "Б1.О.06.2.0", lec: 0, lab: 0, prac: 32, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Элективные дисциплины по физической культуре и спорту", code: "Б1.О.07.2.0", lec: 0, lab: 0, prac: 44, srs: 30, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Математический анализ", code: "Б1.О.08.2.0", lec: 48, lab: 0, prac: 48, srs: 30, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Дискретная математика и математическая логика", code: "Б1.О.08.4.0", lec: 16, lab: 0, prac: 32, srs: 42, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Операционные системы", code: "Б1.О.08.5.0", lec: 20, lab: 20, prac: 8, srs: 56, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Программно-аппаратные комплексы", code: "Б1.О.08.6.0", lec: 16, lab: 16, prac: 0, srs: 36, ze: 2, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Языки и методы программирования", code: "Б1.О.09.1.0", lec: 30, lab: 32, prac: 0, srs: 55, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Алгоритмы и структуры данных", code: "Б1.О.09.2.0", lec: 24, lab: 32, prac: 8, srs: 26, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Введение в искусственный интеллект", code: "Б1.В.02.1.0", lec: 16, lab: 24, prac: 8, srs: 56, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Учебная практика: Учебная практика (ознакомительная практика)", code: "Б2.О.1.0", lec: 0, lab: 0, prac: 0, srs: 140, ze: 4, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Производственная практика: Технологическая практика", code: "Б2.В.1.0", lec: 0, lab: 0, prac: 0, srs: 104, ze: 3, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" },
+        { name: "Планирование карьеры", code: "ФТД.1.0", lec: 8, lab: 0, prac: 8, srs: 16, ze: 1, exam: "", credit: "", diffCredit: "", kr: "", kp: "", controlR: "", essay: "" }
+      ],
+      // Данные для остальных семестров можно добавить аналогично
+    };
+
+    // Функция для генерации таблицы успеваемости
+    function generatePerformanceTable(semester) {
+      const container = document.getElementById('performance-table-container');
+      
+      if (semester === 'all') {
+        // Показать все семестры
+        let allTables = '';
+        for (let i = 1; i <= 8; i++) {
+          if (semesterData[i]) {
+            allTables += createSemesterTable(i, semesterData[i]);
+          }
+        }
+        container.innerHTML = allTables;
+      } else {
+        // Показать выбранный семестр
+        const data = semesterData[semester] || [];
+        container.innerHTML = createSemesterTable(semester, data);
+      }
+      
+      feather.replace();
+    }
+
+    // Функция для создания таблицы для конкретного семестра
+    function createSemesterTable(semesterNum, data) {
+      let tableHTML = `
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div class="flex items-center mb-4">
+            <i data-feather="book" class="text-blue-600 w-6 h-6 mr-2"></i>
+            <h2 class="text-xl font-semibold text-gray-800">${semesterNum} Семестр</h2>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200 text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                  <th class="px-4 py-2 border">Название предмета</th>
+                  <th class="px-4 py-2 border">Экзамен</th>
+                  <th class="px-4 py-2 border">Зачёт</th>
+                  <th class="px-4 py-2 border">Дифф. зачёт</th>
+                  <th class="px-4 py-2 border">КР</th>
+                  <th class="px-4 py-2 border">КП</th>
+                  <th class="px-4 py-2 border">Контр. Р</th>
+                  <th class="px-4 py-2 border">Эссе</th>
+                  <th class="px-4 py-2 border">Лекции</th>
+                  <th class="px-4 py-2 border">Л.Р.</th>
+                  <th class="px-4 py-2 border">Практика</th>
+                  <th class="px-4 py-2 border">СРС</th>
+                  <th class="px-4 py-2 border">З.Е.</th>
+                </tr>
+              </thead>
+              <tbody>
+      `;
+      
+      data.forEach(subject => {
+        tableHTML += `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border font-medium">${subject.name}</td>
+            <td class="px-4 py-2 border ${subject.exam ? 'text-green-600 font-bold' : ''}">${subject.exam}</td>
+            <td class="px-4 py-2 border ${subject.credit ? 'text-green-600 font-bold' : ''}">${subject.credit}</td>
+            <td class="px-4 py-2 border ${subject.diffCredit ? 'text-green-600 font-bold' : ''}">${subject.diffCredit}</td>
+            <td class="px-4 py-2 border ${subject.kr ? 'text-green-600 font-bold' : ''}">${subject.kr}</td>
+            <td class="px-4 py-2 border ${subject.kp ? 'text-green-600 font-bold' : ''}">${subject.kp}</td>
+            <td class="px-4 py-2 border ${subject.controlR ? 'text-green-600 font-bold' : ''}">${subject.controlR}</td>
+            <td class="px-4 py-2 border ${subject.essay ? 'text-green-600 font-bold' : ''}">${subject.essay}</td>
+            <td class="px-4 py-2 border">${subject.lec}</td>
+            <td class="px-4 py-2 border">${subject.lab}</td>
+            <td class="px-4 py-2 border">${subject.prac}</td>
+            <td class="px-4 py-2 border">${subject.srs}</td>
+            <td class="px-4 py-2 border">${subject.ze}</td>
+          </tr>
+        `;
+      });
+      
+      tableHTML += `
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      
+      return tableHTML;
+    }
+
+    // Обработчики событий для кнопок семестров
+    document.getElementById('semester-buttons').addEventListener('click', function(e) {
+      if (e.target.tagName === 'BUTTON') {
+        const semester = e.target.getAttribute('data-semester');
+        
+        // Обновляем активную кнопку
+        document.querySelectorAll('#semester-buttons button').forEach(btn => {
+          btn.classList.remove('bg-indigo-600', 'text-white');
+          btn.classList.add('bg-indigo-100', 'text-indigo-700');
+        });
+        
+        e.target.classList.remove('bg-indigo-100', 'text-indigo-700');
+        e.target.classList.add('bg-indigo-600', 'text-white');
+        
+        // Генерируем таблицу
+        generatePerformanceTable(semester);
+      }
+    });
+
+    // Инициализация - показываем первый семестр по умолчанию
+    document.querySelector('[data-semester="1"]').click();
+  </script>
+</body>
+</html>
