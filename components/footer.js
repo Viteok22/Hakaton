@@ -1,7 +1,7 @@
 class CustomFooter extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
-    this.shadowRoot.innerHTML = `
+    this.shadowRoot.innerHTML = 
       <style>
         footer {
           background: #1e293b;
@@ -105,8 +105,9 @@ class CustomFooter extends HTMLElement {
           <p>&copy; 2024 УмКабинет. Все права защищены.</p>
         </div>
       </footer>
-    `;
+    ;
   }
 }
 
 customElements.define('custom-footer', CustomFooter);
+
