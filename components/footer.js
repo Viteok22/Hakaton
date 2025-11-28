@@ -6,6 +6,7 @@ class CustomFooter extends HTMLElement {
         footer {
           background: #1e293b;
           color: white;
+          width: 100%;
           padding: 2rem 1rem;
           text-align: center;
           margin-top: auto;
@@ -104,5 +105,6 @@ class CustomFooter extends HTMLElement {
   }
 }
 customElements.define('custom-footer', CustomFooter);
+
 
 
