@@ -3,29 +3,23 @@ class CustomFooter extends HTMLElement {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style>
-        :host {
-          display: block;
-          width: 100%;
-        }
-
         footer {
-          width: 100%;
-          display: block;
           background: #1e293b;
           color: white;
           padding: 2rem 1rem;
           text-align: center;
           margin-top: auto;
+          width: 100%; /* добавлено */
         }
 
         .footer-content {
           max-width: 1200px;
-          width: 100%;
           margin: 0 auto;
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 2rem;
           text-align: left;
+          width: 100%; /* добавлено */
         }
 
         .footer-section h3 {
@@ -34,27 +28,22 @@ class CustomFooter extends HTMLElement {
           margin-bottom: 1rem;
           color: #e2e8f0;
         }
-
         .footer-section ul {
           list-style: none;
           padding: 0;
           margin: 0;
         }
-
         .footer-section li {
           margin-bottom: 0.5rem;
         }
-
         .footer-section a {
           color: #94a3b8;
           text-decoration: none;
           transition: color 0.2s;
         }
-
         .footer-section a:hover {
           color: #ffffff;
         }
-
         .footer-bottom {
           margin-top: 2rem;
           padding-top: 1rem;
@@ -63,18 +52,15 @@ class CustomFooter extends HTMLElement {
           color: #94a3b8;
           font-size: 0.875rem;
         }
-
         .social-links {
           display: flex;
           gap: 1rem;
           margin-top: 1rem;
         }
-
         .social-links a {
           color: #cbd5e1;
           transition: color 0.2s;
         }
-
         .social-links a:hover {
           color: #ffffff;
         }
@@ -92,7 +78,7 @@ class CustomFooter extends HTMLElement {
               <a href="#"><i data-feather="linkedin"></i></a>
             </div>
           </div>
-
+          
           <div class="footer-section">
             <h3>Разделы</h3>
             <ul>
@@ -103,7 +89,7 @@ class CustomFooter extends HTMLElement {
               <li><a href="career.html">Карьера</a></li>
             </ul>
           </div>
-
+          
           <div class="footer-section">
             <h3>Поддержка</h3>
             <ul>
@@ -114,7 +100,7 @@ class CustomFooter extends HTMLElement {
             </ul>
           </div>
         </div>
-
+        
         <div class="footer-bottom">
           <p>&copy; 2024 УмКабинет. Все права защищены.</p>
         </div>
