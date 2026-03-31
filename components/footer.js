@@ -80,6 +80,7 @@ class CustomFooter extends HTMLElement {
             <ul>
               <li><a href="index.html">Главная</a></li>
               <li><a href="schedule.html">Расписание</a></li>
+              <li><a href="taskmanager.html">Задания</a></li>
               <li><a href="materials.html">Учебные материалы</a></li>
               <li><a href="grades.html">Успеваемость</a></li>
               <li><a href="career.html">Карьера</a></li>
