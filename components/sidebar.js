@@ -65,6 +65,10 @@ class CustomSidebar extends HTMLElement {
           <i data-feather="calendar" class="sidebar-icon"></i>
           Расписание
         </a>
+        <a href="taskmanager.html" class="sidebar-item">
+          <i class="fas fa-tasks" class="sidebar-icon"></i>
+          Задания
+        </a>
         <a href="materials.html" class="sidebar-item">
           <i data-feather="book" class="sidebar-icon"></i>
           Учебные материалы
