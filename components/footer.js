@@ -99,7 +99,7 @@ class CustomFooter extends HTMLElement {
         </div>
         
         <div class="footer-bottom">
-          <p>&copy; 2024 УмКабинет. Все права защищены.</p>
+          <p>&copy; 2026 УмКабинет. Все права защищены.</p>
         </div>
       </footer>
     `;
