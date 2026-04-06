@@ -1,325 +1,378 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Задания - УмКабинет</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-
-  <script src="components/navbar.js"></script>
-  <script src="components/footer.js"></script>
-  <script src="components/sidebar.js"></script>
-
-  <style>
-    .priority-high { border-left: 4px solid #ef4444; }
-    .priority-medium { border-left: 4px solid #f59e0b; }
-    .priority-low { border-left: 4px solid #10b981; }
-
-    .deadline-today { background-color: #fef3c7; }
-    .deadline-overdue { background-color: #fee2e2; }
-
-    .task-completed {
-      text-decoration: line-through;
-      opacity: 0.7;
-    }
-  </style>
-</head>
-
-<body class="bg-gray-50">
-
-<custom-navbar></custom-navbar>
-
-<div class="flex">
-
-<custom-sidebar></custom-sidebar>
-
-<main class="flex-1 p-8">
-
-<div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-6">
-
-<!-- Header -->
-<div class="flex justify-between items-center mb-8">
-
-<h1 class="text-3xl font-bold text-indigo-800">
-Задания
-</h1>
-
-<i data-feather="check-square"
-   class="text-indigo-600 w-8 h-8"></i>
-
-</div>
-
-<!-- Statistics -->
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-
-<div class="bg-blue-50 p-6 rounded-xl shadow-sm">
-
-<div class="flex items-center">
-
-<i data-lucide="list-checks"
-   class="text-blue-600 w-6 h-6 mr-3"></i>
-
-<div>
-
-<p class="text-sm text-gray-600">
-Всего задач
-</p>
-
-<p class="text-2xl font-bold text-gray-800"
-   id="total-tasks">0</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bg-yellow-50 p-6 rounded-xl shadow-sm">
-
-<div class="flex items-center">
-
-<i data-lucide="clock"
-   class="text-yellow-600 w-6 h-6 mr-3"></i>
-
-<div>
-
-<p class="text-sm text-gray-600">
-Ожидает выполнения
-</p>
-
-<p class="text-2xl font-bold text-gray-800"
-   id="pending-tasks">0</p>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="bg-green-50 p-6 rounded-xl shadow-sm">
-
-<div class="flex items-center">
-
-<i data-lucide="circle-check"
-   class="text-green-600 w-6 h-6 mr-3"></i>
-
-<div>
-
-<p class="text-sm text-gray-600">
-Выполнено
-</p>
-
-<p class="text-2xl font-bold text-gray-800"
-   id="completed-tasks">0</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Form -->
-
-<div class="bg-indigo-50 p-6 rounded-xl shadow-sm mb-8">
-
-<h2 class="text-xl font-bold mb-4 text-indigo-800 flex items-center">
-
-<i data-lucide="plus-circle"
-   class="mr-2 w-5 h-5 text-indigo-600"></i>
-
-Добавить новую задачу
-
-</h2>
-
-<form id="task-form" class="space-y-4">
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-<div>
-
-<label class="block text-sm text-gray-700 mb-1">
-Название задачи
-</label>
-
-<input type="text"
-       id="task-title"
-       required
-       class="w-full p-3 border rounded-lg">
-
-</div>
-
-<div>
-
-<label class="block text-sm text-gray-700 mb-1">
-Приоритет
-</label>
-
-<select id="task-priority"
-        class="w-full p-3 border rounded-lg">
-
-<option value="high">
-Высокий (Срочно)
-</option>
-
-<option value="medium" selected>
-Средний
-</option>
-
-<option value="low">
-Низкий
-</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-<div>
-
-<label class="block text-sm text-gray-700 mb-1">
-Дедлайн
-</label>
-
-<input type="date"
-       id="task-deadline"
-       required
-       class="w-full p-3 border rounded-lg">
-
-</div>
-
-<div>
-
-<label class="block text-sm text-gray-700 mb-1">
-Категория
-</label>
-
-<input type="text"
-       id="task-category"
-       class="w-full p-3 border rounded-lg">
-
-</div>
-
-</div>
-
-<div>
-
-<label class="block text-sm text-gray-700 mb-1">
-Описание
-</label>
-
-<textarea id="task-description"
-          rows="3"
-          class="w-full p-3 border rounded-lg"></textarea>
-
-</div>
-
-<div class="flex gap-3 pt-2">
-
-<button type="submit"
-class="bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 rounded-lg">
-
-Добавить задачу
-
-</button>
-
-<button type="button"
-id="clear-form"
-class="bg-gray-300 hover:bg-gray-400 py-3 px-6 rounded-lg">
-
-Очистить форму
-
-</button>
-
-</div>
-
-</form>
-
-</div>
-
-<!-- Filters -->
-
-<div class="bg-white p-4 rounded-xl shadow-sm mb-6 flex flex-wrap gap-3">
-
-<button id="filter-all"
-class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg">
-
-Все
-
-</button>
-
-<button id="filter-pending"
-class="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-lg">
-
-Активные
-
-</button>
-
-<button id="filter-completed"
-class="bg-green-100 text-green-700 px-4 py-2 rounded-lg">
-
-Выполненные
-
-</button>
-
-</div>
-
-<!-- Tasks -->
-
-<div class="bg-white rounded-xl shadow-sm p-6 min-h-[400px]">
-
-<h2 class="text-xl font-bold mb-6 text-indigo-800">
-
-Задачи
-
-</h2>
-
-<div id="tasks-container"
-     class="space-y-4">
-
-</div>
-
-<div id="empty-state"
-     class="text-center py-12">
-
-<p class="text-gray-500">
-
-У вас пока нет задач
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</main>
-
-</div>
-
-<custom-footer></custom-footer>
-
-<script src="script.js"></script>
-
 <script>
 
+// Инициализация иконок
 lucide.createIcons();
 feather.replace();
 
-</script>
+// Загрузка задач
+let tasks = JSON.parse(localStorage.getItem('studentTasks')) || [];
 
-</body>
-</html>
+let currentFilter = 'all';
+let currentPriority = 'all';
+
+// DOM
+const tasksContainer = document.getElementById('tasks-container');
+const taskForm = document.getElementById('task-form');
+const taskTitle = document.getElementById('task-title');
+const taskPriority = document.getElementById('task-priority');
+const taskDeadline = document.getElementById('task-deadline');
+const taskCategory = document.getElementById('task-category');
+const taskDescription = document.getElementById('task-description');
+const emptyState = document.getElementById('empty-state');
+const clearFormBtn = document.getElementById('clear-form');
+
+// Filters
+const filterAll = document.getElementById('filter-all');
+const filterPending = document.getElementById('filter-pending');
+const filterCompleted = document.getElementById('filter-completed');
+const priorityBtns = document.querySelectorAll('.priority-btn');
+
+// Завтрашняя дата по умолчанию
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+taskDeadline.value = tomorrow.toISOString().split('T')[0];
+
+
+
+// =====================
+// Загрузка задач
+// =====================
+
+function loadTasks() {
+
+  tasksContainer.innerHTML = '';
+
+  let filteredTasks = tasks;
+
+  if (currentFilter === 'pending') {
+    filteredTasks = filteredTasks.filter(task => !task.completed);
+  }
+
+  if (currentFilter === 'completed') {
+    filteredTasks = filteredTasks.filter(task => task.completed);
+  }
+
+  if (currentPriority !== 'all') {
+    filteredTasks =
+      filteredTasks.filter(task =>
+        task.priority === currentPriority
+      );
+  }
+
+  if (filteredTasks.length === 0) {
+
+    emptyState.classList.remove('hidden');
+
+  } else {
+
+    emptyState.classList.add('hidden');
+
+    filteredTasks.forEach(task => {
+
+      const el = createTaskElement(task);
+      tasksContainer.appendChild(el);
+
+    });
+
+  }
+
+  updateStats();
+
+  // 🔥 ОБЯЗАТЕЛЬНО
+  lucide.createIcons();
+
+}
+
+
+
+// =====================
+// Создание задачи
+// =====================
+
+function createTaskElement(task) {
+
+  const div = document.createElement('div');
+
+  div.className =
+  `bg-white p-5 rounded-xl shadow-md border-l-4 
+   ${getBorderColor(task.priority)}
+   ${task.completed ? 'task-completed' : ''}`;
+
+  div.innerHTML = `
+
+<div class="flex items-start">
+
+<button onclick="toggleTask(${task.id})"
+class="mr-4 mt-1">
+
+<i data-lucide="${
+task.completed ? 'check-circle' : 'circle'
+}" class="w-6 h-6"></i>
+
+</button>
+
+<div class="flex-1">
+
+<h3 class="text-lg font-semibold text-gray-800">
+
+${task.title}
+
+</h3>
+
+${task.category
+? `<span class="text-sm text-blue-600">
+📚 ${task.category}
+</span>` : ''}
+
+${task.description
+? `<p class="text-gray-600 text-sm mt-1">
+${task.description}
+</p>` : ''}
+
+<p class="text-sm text-gray-500 mt-2">
+
+Дедлайн: ${task.deadline}
+
+</p>
+
+</div>
+
+<div class="flex space-x-2">
+
+<button onclick="editTask(${task.id})">
+
+<i data-lucide="edit"
+class="w-5 h-5"></i>
+
+</button>
+
+<button onclick="deleteTask(${task.id})">
+
+<i data-lucide="trash-2"
+class="w-5 h-5"></i>
+
+</button>
+
+</div>
+
+</div>
+`;
+
+  return div;
+}
+
+
+
+// =====================
+// Цвет приоритета
+// =====================
+
+function getBorderColor(priority) {
+
+  if (priority === 'high')
+    return 'border-red-500';
+
+  if (priority === 'medium')
+    return 'border-amber-500';
+
+  return 'border-green-500';
+
+}
+
+
+
+// =====================
+// Статистика
+// =====================
+
+function updateStats() {
+
+  document.getElementById('total-tasks')
+  .textContent = tasks.length;
+
+  document.getElementById('pending-tasks')
+  .textContent =
+  tasks.filter(t => !t.completed).length;
+
+  document.getElementById('completed-tasks')
+  .textContent =
+  tasks.filter(t => t.completed).length;
+
+}
+
+
+
+// =====================
+// Добавление задачи
+// =====================
+
+function addTask(e) {
+
+  e.preventDefault();
+
+  const title = taskTitle.value.trim();
+
+  if (!title) {
+    alert('Введите название задачи!');
+    return;
+  }
+
+  const newTask = {
+
+    id: Date.now(),
+
+    title,
+
+    priority: taskPriority.value,
+
+    deadline: taskDeadline.value,
+
+    category: taskCategory.value,
+
+    description: taskDescription.value,
+
+    completed: false
+
+  };
+
+  tasks.push(newTask);
+
+  saveTasks();
+
+  loadTasks();
+
+  taskForm.reset();
+
+}
+
+
+
+// =====================
+// Переключение
+// =====================
+
+window.toggleTask = function(id) {
+
+  const task =
+  tasks.find(t => t.id === id);
+
+  task.completed = !task.completed;
+
+  saveTasks();
+
+  loadTasks();
+
+};
+
+
+
+// =====================
+// Удаление
+// =====================
+
+window.deleteTask = function(id) {
+
+  if (confirm('Удалить задачу?')) {
+
+    tasks =
+    tasks.filter(t => t.id !== id);
+
+    saveTasks();
+
+    loadTasks();
+
+  }
+
+};
+
+
+
+// =====================
+// Редактирование
+// =====================
+
+window.editTask = function(id) {
+
+  const task =
+  tasks.find(t => t.id === id);
+
+  const title =
+  prompt('Название:', task.title);
+
+  if (title)
+    task.title = title;
+
+  saveTasks();
+
+  loadTasks();
+
+};
+
+
+
+// =====================
+// Сохранение
+// =====================
+
+function saveTasks() {
+
+  localStorage.setItem(
+    'studentTasks',
+    JSON.stringify(tasks)
+  );
+
+}
+
+
+
+// =====================
+// Очистка формы
+// =====================
+
+clearFormBtn.addEventListener('click', () => {
+
+  taskForm.reset();
+
+});
+
+
+
+// =====================
+// Фильтры
+// =====================
+
+filterAll.onclick = () => {
+
+  currentFilter = 'all';
+  loadTasks();
+
+};
+
+filterPending.onclick = () => {
+
+  currentFilter = 'pending';
+  loadTasks();
+
+};
+
+filterCompleted.onclick = () => {
+
+  currentFilter = 'completed';
+  loadTasks();
+
+};
+
+
+
+// =====================
+// Старт
+// =====================
+
+taskForm.addEventListener(
+  'submit',
+  addTask
+);
+
+loadTasks();
+
+</script>
