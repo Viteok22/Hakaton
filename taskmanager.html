@@ -1,37 +1,86 @@
 <script>
 
+// =====================
 // Инициализация иконок
-lucide.createIcons();
-feather.replace();
+// =====================
 
-// Загрузка задач
-let tasks = JSON.parse(localStorage.getItem('studentTasks')) || [];
+lucide.createIcons();
+
+
+// =====================
+// Данные
+// =====================
+
+let tasks =
+JSON.parse(localStorage.getItem('studentTasks')) || [];
 
 let currentFilter = 'all';
 let currentPriority = 'all';
 
-// DOM
-const tasksContainer = document.getElementById('tasks-container');
-const taskForm = document.getElementById('task-form');
-const taskTitle = document.getElementById('task-title');
-const taskPriority = document.getElementById('task-priority');
-const taskDeadline = document.getElementById('task-deadline');
-const taskCategory = document.getElementById('task-category');
-const taskDescription = document.getElementById('task-description');
-const emptyState = document.getElementById('empty-state');
-const clearFormBtn = document.getElementById('clear-form');
 
-// Filters
-const filterAll = document.getElementById('filter-all');
-const filterPending = document.getElementById('filter-pending');
-const filterCompleted = document.getElementById('filter-completed');
-const priorityBtns = document.querySelectorAll('.priority-btn');
+// =====================
+// DOM элементы
+// =====================
 
-// Завтрашняя дата по умолчанию
+const tasksContainer =
+document.getElementById('tasks-container');
+
+const taskForm =
+document.getElementById('task-form');
+
+const taskTitle =
+document.getElementById('task-title');
+
+const taskPriority =
+document.getElementById('task-priority');
+
+const taskDeadline =
+document.getElementById('task-deadline');
+
+const taskCategory =
+document.getElementById('task-category');
+
+const taskDescription =
+document.getElementById('task-description');
+
+const emptyState =
+document.getElementById('empty-state');
+
+const clearFormBtn =
+document.getElementById('clear-form');
+
+const filterInfo =
+document.getElementById('filter-info');
+
+
+// Filter buttons
+
+const filterAll =
+document.getElementById('filter-all');
+
+const filterPending =
+document.getElementById('filter-pending');
+
+const filterCompleted =
+document.getElementById('filter-completed');
+
+const priorityBtns =
+document.querySelectorAll('.priority-btn');
+
+
+// =====================
+// Дата по умолчанию
+// =====================
+
+const today =
+new Date().toISOString().split('T')[0];
+
 const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-taskDeadline.value = tomorrow.toISOString().split('T')[0];
 
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+taskDeadline.value =
+tomorrow.toISOString().split('T')[0];
 
 
 // =====================
@@ -45,32 +94,76 @@ function loadTasks() {
   let filteredTasks = tasks;
 
   if (currentFilter === 'pending') {
-    filteredTasks = filteredTasks.filter(task => !task.completed);
+
+    filteredTasks =
+    filteredTasks.filter(task =>
+      !task.completed
+    );
+
   }
 
-  if (currentFilter === 'completed') {
-    filteredTasks = filteredTasks.filter(task => task.completed);
+  else if (currentFilter === 'completed') {
+
+    filteredTasks =
+    filteredTasks.filter(task =>
+      task.completed
+    );
+
   }
 
   if (currentPriority !== 'all') {
+
     filteredTasks =
-      filteredTasks.filter(task =>
-        task.priority === currentPriority
-      );
+    filteredTasks.filter(task =>
+      task.priority === currentPriority
+    );
+
   }
+
+
+  // Сортировка по дедлайну
+
+  filteredTasks.sort((a, b) => {
+
+    if (!a.deadline) return 1;
+    if (!b.deadline) return -1;
+
+    return new Date(a.deadline) -
+           new Date(b.deadline);
+
+  });
+
+
+  // UI
 
   if (filteredTasks.length === 0) {
 
     emptyState.classList.remove('hidden');
 
-  } else {
+    filterInfo.textContent =
+    'Нет задач по текущему фильтру';
+
+  }
+
+  else {
 
     emptyState.classList.add('hidden');
 
+    filterInfo.textContent =
+`Показано ${filteredTasks.length} задач${
+currentPriority !== 'all'
+? ` (приоритет: ${currentPriority})`
+: ''
+}`;
+
     filteredTasks.forEach(task => {
 
-      const el = createTaskElement(task);
-      tasksContainer.appendChild(el);
+      const taskElement =
+      createTaskElement(task);
+
+      tasksContainer.appendChild(
+        taskElement
+      );
 
     });
 
@@ -78,7 +171,7 @@ function loadTasks() {
 
   updateStats();
 
-  // 🔥 ОБЯЗАТЕЛЬНО
+  // 🔥 ВАЖНО — перерисовать иконки
   lucide.createIcons();
 
 }
@@ -86,17 +179,38 @@ function loadTasks() {
 
 
 // =====================
-// Создание задачи
+// Создание элемента задачи
 // =====================
 
 function createTaskElement(task) {
 
-  const div = document.createElement('div');
+  const priorityColors = {
+
+    high: 'border-red-500',
+    medium: 'border-amber-500',
+    low: 'border-emerald-500'
+
+  };
+
+  const deadlineStatus =
+  getDeadlineStatus(task.deadline);
+
+  const div =
+  document.createElement('div');
 
   div.className =
-  `bg-white p-5 rounded-xl shadow-md border-l-4 
-   ${getBorderColor(task.priority)}
-   ${task.completed ? 'task-completed' : ''}`;
+`task-item bg-white p-5 rounded-xl shadow-md border-l-4
+${priorityColors[task.priority]}
+${task.completed ? 'task-completed' : ''}
+${deadlineStatus === 'overdue' ? 'deadline-overdue' : ''}
+${deadlineStatus === 'today' ? 'deadline-today' : ''}`;
+
+  div.id = `task-${task.id}`;
+
+  const statusIcon =
+  task.completed
+  ? 'check-circle'
+  : 'circle';
 
   div.innerHTML = `
 
@@ -105,48 +219,74 @@ function createTaskElement(task) {
 <button onclick="toggleTask(${task.id})"
 class="mr-4 mt-1">
 
-<i data-lucide="${
-task.completed ? 'check-circle' : 'circle'
-}" class="w-6 h-6"></i>
+<i data-lucide="${statusIcon}"
+class="${task.completed
+? 'text-green-500'
+: 'text-gray-400'} w-6 h-6"></i>
 
 </button>
 
 <div class="flex-1">
 
-<h3 class="text-lg font-semibold text-gray-800">
+<h3 class="text-lg font-semibold text-gray-800 mb-1">
 
 ${task.title}
 
 </h3>
 
 ${task.category
-? `<span class="text-sm text-blue-600">
+? `<span class="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium mb-2">
 📚 ${task.category}
-</span>` : ''}
+</span>`
+: ''}
 
 ${task.description
-? `<p class="text-gray-600 text-sm mt-1">
+? `<p class="text-gray-600 text-sm mb-2">
 ${task.description}
-</p>` : ''}
+</p>`
+: ''}
 
-<p class="text-sm text-gray-500 mt-2">
+<div class="flex items-center flex-wrap gap-3">
 
-Дедлайн: ${task.deadline}
+<span class="text-sm text-gray-500 flex items-center">
 
-</p>
+<i data-lucide="clock"
+class="w-4 h-4 mr-1"></i>
+
+Дедлайн:
+<span class="ml-1 font-medium">
+
+${task.deadline || 'Без даты'}
+
+</span>
+
+</span>
+
+<span class="text-sm text-gray-500 flex items-center">
+
+<i data-lucide="flag"
+class="w-4 h-4 mr-1"></i>
+
+${getPriorityText(task.priority)}
+
+</span>
+
+</div>
 
 </div>
 
 <div class="flex space-x-2">
 
-<button onclick="editTask(${task.id})">
+<button onclick="editTask(${task.id})"
+class="text-gray-600 hover:text-blue-600">
 
 <i data-lucide="edit"
 class="w-5 h-5"></i>
 
 </button>
 
-<button onclick="deleteTask(${task.id})">
+<button onclick="deleteTask(${task.id})"
+class="text-gray-600 hover:text-red-600">
 
 <i data-lucide="trash-2"
 class="w-5 h-5"></i>
@@ -159,23 +299,56 @@ class="w-5 h-5"></i>
 `;
 
   return div;
+
 }
 
 
 
 // =====================
-// Цвет приоритета
+// Deadline статус
 // =====================
 
-function getBorderColor(priority) {
+function getDeadlineStatus(deadline) {
 
-  if (priority === 'high')
-    return 'border-red-500';
+  if (!deadline) return 'none';
 
-  if (priority === 'medium')
-    return 'border-amber-500';
+  const todayDate =
+  new Date();
 
-  return 'border-green-500';
+  todayDate.setHours(0,0,0,0);
+
+  const d =
+  new Date(deadline);
+
+  d.setHours(0,0,0,0);
+
+  if (d < todayDate)
+    return 'overdue';
+
+  if (d.getTime() === todayDate.getTime())
+    return 'today';
+
+  return 'future';
+
+}
+
+
+
+// =====================
+// Текст приоритета
+// =====================
+
+function getPriorityText(priority) {
+
+  const map = {
+
+    high: 'Высокий',
+    medium: 'Средний',
+    low: 'Низкий'
+
+  };
+
+  return map[priority];
 
 }
 
@@ -187,16 +360,16 @@ function getBorderColor(priority) {
 
 function updateStats() {
 
-  document.getElementById('total-tasks')
-  .textContent = tasks.length;
+document.getElementById('total-tasks')
+.textContent = tasks.length;
 
-  document.getElementById('pending-tasks')
-  .textContent =
-  tasks.filter(t => !t.completed).length;
+document.getElementById('pending-tasks')
+.textContent =
+tasks.filter(t => !t.completed).length;
 
-  document.getElementById('completed-tasks')
-  .textContent =
-  tasks.filter(t => t.completed).length;
+document.getElementById('completed-tasks')
+.textContent =
+tasks.filter(t => t.completed).length;
 
 }
 
@@ -210,11 +383,14 @@ function addTask(e) {
 
   e.preventDefault();
 
-  const title = taskTitle.value.trim();
+  const title =
+  taskTitle.value.trim();
 
   if (!title) {
+
     alert('Введите название задачи!');
     return;
+
   }
 
   const newTask = {
@@ -248,7 +424,7 @@ function addTask(e) {
 
 
 // =====================
-// Переключение
+// Toggle
 // =====================
 
 window.toggleTask = function(id) {
@@ -256,7 +432,8 @@ window.toggleTask = function(id) {
   const task =
   tasks.find(t => t.id === id);
 
-  task.completed = !task.completed;
+  task.completed =
+  !task.completed;
 
   saveTasks();
 
@@ -267,73 +444,61 @@ window.toggleTask = function(id) {
 
 
 // =====================
-// Удаление
+// Delete
 // =====================
 
 window.deleteTask = function(id) {
 
-  if (confirm('Удалить задачу?')) {
+if (confirm('Удалить задачу?')) {
 
-    tasks =
-    tasks.filter(t => t.id !== id);
+tasks =
+tasks.filter(t => t.id !== id);
 
-    saveTasks();
+saveTasks();
 
-    loadTasks();
+loadTasks();
 
-  }
+}
 
 };
 
 
 
 // =====================
-// Редактирование
+// Edit
 // =====================
 
 window.editTask = function(id) {
 
-  const task =
-  tasks.find(t => t.id === id);
+const task =
+tasks.find(t => t.id === id);
 
-  const title =
-  prompt('Название:', task.title);
+const newTitle =
+prompt('Название:', task.title);
 
-  if (title)
-    task.title = title;
+if (newTitle)
+task.title = newTitle;
 
-  saveTasks();
+saveTasks();
 
-  loadTasks();
+loadTasks();
 
 };
 
 
 
 // =====================
-// Сохранение
+// Save
 // =====================
 
 function saveTasks() {
 
-  localStorage.setItem(
-    'studentTasks',
-    JSON.stringify(tasks)
-  );
+localStorage.setItem(
+'studentTasks',
+JSON.stringify(tasks)
+);
 
 }
-
-
-
-// =====================
-// Очистка формы
-// =====================
-
-clearFormBtn.addEventListener('click', () => {
-
-  taskForm.reset();
-
-});
 
 
 
@@ -343,22 +508,50 @@ clearFormBtn.addEventListener('click', () => {
 
 filterAll.onclick = () => {
 
-  currentFilter = 'all';
-  loadTasks();
+currentFilter = 'all';
+
+loadTasks();
 
 };
 
 filterPending.onclick = () => {
 
-  currentFilter = 'pending';
-  loadTasks();
+currentFilter = 'pending';
+
+loadTasks();
 
 };
 
 filterCompleted.onclick = () => {
 
-  currentFilter = 'completed';
-  loadTasks();
+currentFilter = 'completed';
+
+loadTasks();
+
+};
+
+priorityBtns.forEach(btn => {
+
+btn.onclick = () => {
+
+currentPriority =
+btn.dataset.filter;
+
+loadTasks();
+
+};
+
+});
+
+
+
+// =====================
+// Очистка формы
+// =====================
+
+clearFormBtn.onclick = () => {
+
+taskForm.reset();
 
 };
 
@@ -369,8 +562,8 @@ filterCompleted.onclick = () => {
 // =====================
 
 taskForm.addEventListener(
-  'submit',
-  addTask
+'submit',
+addTask
 );
 
 loadTasks();
