@@ -8,8 +8,11 @@
 
 <title>Задания - УмКабинет</title>
 
+<link rel="stylesheet" href="style.css">
+
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/feather-icons"></script>
 
 <script src="components/navbar.js"></script>
 <script src="components/footer.js"></script>
@@ -17,31 +20,17 @@
 
 <style>
 
-body {
-
-font-family: 'Inter', sans-serif;
-background: linear-gradient(135deg,#f5f7fa 0%,#e4e7eb 100%);
-min-height: 100vh;
-
-}
-
 .task-completed {
-
 text-decoration: line-through;
 opacity: 0.7;
-
 }
 
 .deadline-overdue {
-
 background-color:#fee2e2;
-
 }
 
 .deadline-today {
-
 background-color:#fef3c7;
-
 }
 
 </style>
@@ -50,7 +39,7 @@ background-color:#fef3c7;
 
 
 
-<body class="px-4 py-8">
+<body class="bg-gray-50">
 
 <custom-navbar></custom-navbar>
 
@@ -60,88 +49,64 @@ background-color:#fef3c7;
 
 
 
-<div class="max-w-4xl mx-auto w-full">
+<main class="flex-1 p-8">
 
-
+<div class="max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-6">
 
 <!-- HEADER -->
 
-<div class="mb-10 text-center">
+<div class="flex justify-between items-center mb-8">
 
-<h1 class="text-4xl font-bold text-gray-800 mb-2">
-
-Student Task Manager
-
+<h1 class="text-3xl font-bold text-indigo-800">
+Задания
 </h1>
 
-<p class="text-gray-600">
-
-Организуй свои задания и дедлайны
-
-</p>
+<i data-feather="check-square"
+class="text-indigo-600 w-8 h-8"></i>
 
 </div>
 
 
 
-<!-- STATS -->
+<!-- СТАТИСТИКА -->
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-<div class="bg-white p-6 rounded-xl shadow-md">
+<div class="bg-indigo-50 p-6 rounded-xl">
 
-<p class="text-sm text-gray-500">
-
+<p class="text-sm text-gray-600">
 Всего задач
-
 </p>
 
 <p id="total-tasks"
-
 class="text-2xl font-bold text-gray-800">
-
 0
-
 </p>
 
 </div>
 
+<div class="bg-yellow-50 p-6 rounded-xl">
 
-
-<div class="bg-white p-6 rounded-xl shadow-md">
-
-<p class="text-sm text-gray-500">
-
+<p class="text-sm text-gray-600">
 Ожидает выполнения
-
 </p>
 
 <p id="pending-tasks"
-
 class="text-2xl font-bold text-gray-800">
-
 0
-
 </p>
 
 </div>
 
+<div class="bg-green-50 p-6 rounded-xl">
 
-
-<div class="bg-white p-6 rounded-xl shadow-md">
-
-<p class="text-sm text-gray-500">
-
+<p class="text-sm text-gray-600">
 Выполнено
-
 </p>
 
 <p id="completed-tasks"
-
 class="text-2xl font-bold text-gray-800">
-
 0
-
 </p>
 
 </div>
@@ -150,11 +115,11 @@ class="text-2xl font-bold text-gray-800">
 
 
 
-<!-- FORM -->
+<!-- ФОРМА -->
 
-<div class="bg-white p-6 rounded-xl shadow-lg mb-8">
+<div class="bg-indigo-50 p-6 rounded-xl mb-8">
 
-<h2 class="text-xl font-bold mb-4">
+<h2 class="text-xl font-bold text-indigo-800 mb-4">
 
 Добавить новую задачу
 
@@ -162,57 +127,48 @@ class="text-2xl font-bold text-gray-800">
 
 
 
-<form id="task-form"
+<form id="task-form" class="space-y-4">
 
-class="space-y-4">
+<div class="grid md:grid-cols-2 gap-4">
 
-<input id="task-title"
-
+<input
+id="task-title"
 required
-
 placeholder="Название задачи"
-
 class="w-full p-3 border rounded-lg">
 
-
-
-<select id="task-priority"
-
+<select
+id="task-priority"
 class="w-full p-3 border rounded-lg">
 
 <option value="high">
-
 Высокий
-
 </option>
 
 <option value="medium">
-
 Средний
-
 </option>
 
 <option value="low">
-
 Низкий
-
 </option>
 
 </select>
 
+</div>
 
 
-<input type="date"
 
+<input
+type="date"
 id="task-deadline"
-
 class="w-full p-3 border rounded-lg">
 
 
 
 <button
-
-class="bg-blue-600 text-white px-6 py-3 rounded-lg">
+class="bg-indigo-600 hover:bg-indigo-700
+text-white px-6 py-3 rounded-lg">
 
 Добавить задачу
 
@@ -224,11 +180,11 @@ class="bg-blue-600 text-white px-6 py-3 rounded-lg">
 
 
 
-<!-- TASKS -->
+<!-- СПИСОК -->
 
-<div class="bg-white rounded-xl shadow-lg p-6">
+<div class="bg-white rounded-xl shadow-sm p-6">
 
-<h2 class="text-xl font-bold mb-6">
+<h2 class="text-xl font-bold text-indigo-800 mb-6">
 
 Задачи
 
@@ -237,7 +193,6 @@ class="bg-blue-600 text-white px-6 py-3 rounded-lg">
 
 
 <div id="tasks-container"
-
 class="space-y-4">
 
 </div>
@@ -245,7 +200,6 @@ class="space-y-4">
 
 
 <div id="empty-state"
-
 class="text-center py-10">
 
 <p class="text-gray-500">
@@ -264,23 +218,21 @@ class="text-center py-10">
 
 </div>
 
+</main>
+
 </div>
-
-
 
 <custom-footer></custom-footer>
 
 
 
-<!-- SCRIPT -->
-
 <script>
 
-lucide.createIcons();
+feather.replace();
 
 
 
-// =======================
+// =================
 
 let tasks =
 JSON.parse(localStorage.getItem('studentTasks')) || [];
@@ -309,7 +261,38 @@ document.getElementById('empty-state');
 
 
 
-// =======================
+// =================
+
+function daysLeft(date) {
+
+if (!date) return '';
+
+const today =
+new Date();
+
+today.setHours(0,0,0,0);
+
+const d =
+new Date(date);
+
+d.setHours(0,0,0,0);
+
+const diff =
+Math.ceil((d - today) / (1000*60*60*24));
+
+if (diff < 0)
+return `Просрочено на ${Math.abs(diff)} дн.`;
+
+if (diff === 0)
+return 'Сегодня';
+
+return `Осталось ${diff} дн.`;
+
+}
+
+
+
+// =================
 
 function loadTasks() {
 
@@ -328,7 +311,7 @@ empty.classList.add('hidden');
 tasks.forEach(task => {
 
 const el =
-createTaskElement(task);
+createTask(task);
 
 container.appendChild(el);
 
@@ -338,22 +321,34 @@ container.appendChild(el);
 
 updateStats();
 
-lucide.createIcons();
+feather.replace();
 
 }
 
 
 
-// =======================
+// =================
 
-function createTaskElement(task) {
+function createTask(task) {
 
 const div =
 document.createElement('div');
 
+const leftDays =
+daysLeft(task.deadline);
+
+let deadlineClass = '';
+
+if (leftDays.includes('Просрочено'))
+deadlineClass = 'deadline-overdue';
+
+if (leftDays === 'Сегодня')
+deadlineClass = 'deadline-today';
+
 div.className =
-`bg-white p-4 rounded-xl shadow-md border-l-4
-${getPriorityBorder(task.priority)}
+`p-4 rounded-xl border-l-4 shadow-sm
+${getPriorityColor(task.priority)}
+${deadlineClass}
 ${task.completed ? ' task-completed' : ''}`;
 
 div.innerHTML = `
@@ -374,13 +369,29 @@ ${task.title}
 
 </p>
 
+<p class="text-sm font-medium">
+
+${leftDays}
+
+</p>
+
 </div>
+
+<div class="flex gap-2">
+
+<button onclick="toggleTask(${task.id})">
+
+<i data-feather="check-circle"></i>
+
+</button>
 
 <button onclick="deleteTask(${task.id})">
 
-<i data-lucide="trash-2"></i>
+<i data-feather="trash-2"></i>
 
 </button>
+
+</div>
 
 </div>
 
@@ -392,15 +403,15 @@ return div;
 
 
 
-// =======================
+// =================
 
-function getPriorityBorder(priority) {
+function getPriorityColor(priority) {
 
 if (priority === 'high')
 return 'border-red-500';
 
 if (priority === 'medium')
-return 'border-amber-500';
+return 'border-yellow-500';
 
 return 'border-green-500';
 
@@ -408,7 +419,7 @@ return 'border-green-500';
 
 
 
-// =======================
+// =================
 
 function updateStats() {
 
@@ -427,7 +438,7 @@ tasks.filter(t => t.completed).length;
 
 
 
-// =======================
+// =================
 
 form.addEventListener('submit', e => {
 
@@ -462,7 +473,28 @@ loadTasks();
 
 
 
-// =======================
+// =================
+
+window.toggleTask = id => {
+
+const task =
+tasks.find(t => t.id === id);
+
+task.completed =
+!task.completed;
+
+localStorage.setItem(
+'studentTasks',
+JSON.stringify(tasks)
+);
+
+loadTasks();
+
+};
+
+
+
+// =================
 
 window.deleteTask = id => {
 
@@ -480,7 +512,7 @@ loadTasks();
 
 
 
-// =======================
+// =================
 
 loadTasks();
 
@@ -489,5 +521,4 @@ loadTasks();
 
 
 </body>
-
 </html>
